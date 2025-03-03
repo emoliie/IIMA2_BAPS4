@@ -18,6 +18,7 @@ export default function AuthCallback() {
 
       const supabase = supabaseClient();
       const { data, error } = await supabase.auth.getSession(); // Fonction côté client
+      console.log("data", data);
 
       if (error) {
         console.error("Erreur :", error);
