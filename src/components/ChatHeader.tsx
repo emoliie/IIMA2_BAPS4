@@ -1,34 +1,59 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
-import { supabaseClient } from "@/lib/supabase/client";
+import { supabaseBrowser } from "@/lib/supabase/browser";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
-export default function ChatHeader({ user }: { user: User | undefined }) {
-
+export default function ChatHeader() {
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
+  const supabase = supabaseBrowser();
 
-  const handleLoginWithGoogle = () => {
-    const supabase = supabaseClient();
-    supabase.auth.signInWithOAuth({
+  // Fetch user session on mount
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabase.auth.getSession();
+      setUser(data?.session?.user || null);
+    };
+
+    getUser();
+
+    // Listen for authentication changes
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (_event, session) => {
+        setUser(session?.user || null);
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleLoginWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:3000/auth/callback",
+        redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
+
+    if (error) {
+      console.error("Google Auth Error:", error.message);
+    }
   };
 
   const handleLogout = async () => {
-    const supabase = supabaseClient();
     await supabase.auth.signOut();
+    setUser(null); // Clear user state
     router.refresh();
   };
 
   return (
     <div className="h-20">
-      <div className="p-5 border-b flex items-center justify-between">
+      <div className="p-5 border-b flex items-center justify-between h-full">
         <div>
           <h1 className="text-xl font-bold">Daily Chat</h1>
           <div className="flex items-center gap-1">
