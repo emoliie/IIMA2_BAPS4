@@ -10,7 +10,7 @@ export async function GET(request: Request) {
     return NextResponse.redirect(`${origin}/auth/auth-code-error`);
   }
 
-  const supabase = await supabaseServer();
+  const supabase = await supabaseServer(); // Await because it's now async
   const { error } = await supabase.auth.exchangeCodeForSession(code);
 
   if (error) {
