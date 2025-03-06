@@ -9,14 +9,17 @@ import { useRouter } from "next/navigation";
 export default function ChatHeader({ user }: { user: User | undefined }) {
   const router = useRouter();
 
-  const handleLoginWithGoogle = () => {
+  const handleLoginWithGoogle = async () => {
     const supabase = supabaseBrowser();
-    supabase.auth.signInWithOAuth({
+    const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
         redirectTo: `${window.location.origin}/auth/callback`,
       },
     });
+    if (error) {
+      console.error("Login error:", error.message);
+    }
   };
 
   const handleLogout = async () => {
@@ -30,10 +33,6 @@ export default function ChatHeader({ user }: { user: User | undefined }) {
       <div className="p-5 border-b flex items-center justify-between h-full">
         <div>
           <h1 className="text-xl font-bold">Daily Chat</h1>
-          <div className="flex items-center gap-1">
-            <div className="h-4 w-4 bg-green-500 rounded-full animate-pulse"></div>
-            <p className="text-sm text-gray-400">2 onlines</p>
-          </div>
         </div>
 
         {user ? (

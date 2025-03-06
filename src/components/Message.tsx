@@ -11,6 +11,7 @@ import { Ellipsis } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { useUser } from "@/lib/store/user";
+import { toast } from "sonner";
 
 export default function Message({ message }: { message: Imessage }) {
   const avatarUrl = message.users?.avatar_url || "/default-avatar.png"; // Default image
@@ -18,6 +19,10 @@ export default function Message({ message }: { message: Imessage }) {
 
   const user = useUser((state) => state.user);
   console.log("Current User:", user); // TODO: user undefined
+
+  if (!user) {
+    toast.error("Veuillez vous connecter")
+  }
 
   const options: Intl.DateTimeFormatOptions = {
     weekday: "short",
