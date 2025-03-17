@@ -8,7 +8,7 @@ export default async function ChatMessages() {
   const { data, error } = await supabase
     .from("messages")
     .select("*, users(*)")
-    .range(0, 20)
+    // .range(0, 20)
     .order("created_at", { ascending: false });
 
   if (error) {

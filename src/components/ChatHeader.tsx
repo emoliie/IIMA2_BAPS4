@@ -24,15 +24,19 @@ export default function ChatHeader({ user }: { user: User | undefined }) {
 
   const handleLogout = async () => {
     const supabase = supabaseBrowser();
-    await supabase.auth.signOut();
+    const {error} = await supabase.auth.signOut();
     router.refresh();
+
+    if (error) {
+      console.error("Logout Error", error.message)
+    }
   };
 
   return (
     <div className="h-20">
       <div className="p-5 border-b flex items-center justify-between h-full">
         <div>
-          <h1 className="text-xl font-bold">Daily Chat</h1>
+          <h1 className="text-xl font-bold">Chat</h1>
         </div>
 
         {user ? (

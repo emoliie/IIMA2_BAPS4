@@ -7,7 +7,7 @@ import { supabaseBrowser } from "@/lib/supabase/browser";
 import { toast } from "sonner";
 import { ArrowDown } from "lucide-react";
 
-export default function ListMessages() {
+export default function ListMessages({ chatroomId }: { chatroomId: string }) {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [userScrolled, setUserScrolled] = useState(false);
   const [notification, setNotification] = useState(0);
@@ -22,12 +22,51 @@ export default function ListMessages() {
 
   const supabase = supabaseBrowser();
 
+  // Fetch messages for the selected chatroom
   useEffect(() => {
+    const fetchMessages = async () => {
+      if (!chatroomId) return; // Prevent fetch if chatroomId is undefined
+
+      const { data, error } = await supabase
+        .from("messages")
+        .select("*")
+        .eq("chatroom_id", chatroomId) // Only get messages for this chatroom
+        .order("created_at", { ascending: true });
+
+      if (error) {
+        toast.error(error.message);
+      } else {
+        data.forEach(async (msg) => {
+          const { data: userData, error: userError } = await supabase
+            .from("users")
+            .select("*")
+            .eq("id", msg.send_by)
+            .single();
+
+          if (!userError) {
+            addMessage({ ...msg, users: userData } as Imessage);
+          }
+        });
+      }
+    };
+
+    fetchMessages();
+  }, [chatroomId]);
+
+  // REAL-TIME
+  useEffect(() => {
+    if (!chatroomId) return;
+
     const channel = supabase
-      .channel("chat-room")
+      .channel(`chatroom-${chatroomId}`) // Unique channel per chatroom
       .on(
         "postgres_changes",
-        { event: "INSERT", schema: "public", table: "messages" },
+        {
+          event: "INSERT",
+          schema: "public",
+          table: "messages",
+          filter: `chatroom_id=eq.${chatroomId}`,
+        },
         async (payload) => {
           if (!optimisticIds.includes(payload.new.id)) {
             const { error, data } = await supabase
@@ -35,13 +74,9 @@ export default function ListMessages() {
               .select("*")
               .eq("id", payload.new.send_by)
               .single();
-            if (error) {
-              toast.error(error.message);
-            } else {
-              const newMessage = {
-                ...payload.new,
-                users: data,
-              };
+
+            if (!error) {
+              const newMessage = { ...payload.new, users: data };
               addMessage(newMessage as Imessage);
             }
           }

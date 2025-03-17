@@ -8,6 +8,10 @@ import { v4 as uuidv4 } from "uuid";
 import { useUser } from "@/lib/store/user";
 import { Imessage, useMessage } from "@/lib/store/messages";
 
+interface ChatInputProps {
+  chatroomId: string | null; // Ensure we get a valid chatroom ID
+}
+
 export default function ChatInput() {
   const user = useUser((state) => state.user);
   const addMessage = useMessage((state) => state.addMessage);
@@ -16,8 +20,9 @@ export default function ChatInput() {
 
   const handleSendMessage = async (text: string) => {
     if (text.trim()) {
+      const id = uuidv4(); // Generate uuid
       const newMessage = {
-        id: uuidv4(),
+        id,
         text,
         send_by: user?.id,
         is_edit: false,
@@ -33,7 +38,7 @@ export default function ChatInput() {
       addMessage(newMessage as Imessage);
       setOptimisticIds(newMessage.id);
 
-      const { error } = await supabase.from("messages").insert({ text });
+      const { error } = await supabase.from("messages").insert({ text, id });
       if (error) {
         toast.error(error.message);
       }

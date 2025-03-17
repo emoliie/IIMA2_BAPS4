@@ -11,18 +11,12 @@ import { Ellipsis } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { useUser } from "@/lib/store/user";
-import { toast } from "sonner";
 
 export default function Message({ message }: { message: Imessage }) {
-  const avatarUrl = message.users?.avatar_url || "/default-avatar.png"; // Default image
-  const displayName = message.users?.display_name || "Unknown User"; // Fallback for alt
+  const avatarUrl = message.users?.avatar_url!;
+  const displayName = message.users?.display_name!;
 
   const user = useUser((state) => state.user);
-  console.log("Current User:", user); // TODO: user undefined
-
-  if (!user) {
-    toast.error("Veuillez vous connecter")
-  }
 
   const options: Intl.DateTimeFormatOptions = {
     weekday: "short",
@@ -45,7 +39,7 @@ export default function Message({ message }: { message: Imessage }) {
       <div className="flex-1">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1">
-            <h2 className="font-bold">{message.users?.display_name}</h2>
+            <h2 className="font-bold">{displayName}</h2>
             <h3 className="text-sm text-gray-500">
               {new Date(message.created_at!).toLocaleDateString(
                 "fr-FR",
