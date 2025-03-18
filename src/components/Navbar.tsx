@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { User } from "@supabase/supabase-js";
@@ -12,9 +12,9 @@ import { Search } from "lucide-react";
 export default function Navbar({ user }: { user?: User }) {
   const router = useRouter();
 
+  const supabase = supabaseBrowser();
   // Function to handle logout
   const handleLogout = async () => {
-    const supabase = supabaseBrowser();
     const { error } = await supabase.auth.signOut();
 
     if (error) {
@@ -23,6 +23,17 @@ export default function Navbar({ user }: { user?: User }) {
       router.push("/"); // Redirige vers la page d'accueil après déconnexion
     }
   };
+
+  const [firstChat, setFirstChat] = useState<any>(null);
+
+  const loadChats = async () => {
+    const firstChat = await supabase.from("chatrooms").select("id").single();
+    setFirstChat(firstChat.data);
+  };
+
+  useEffect(() => {
+    loadChats();
+  }, []);
 
   return (
     <nav className="flex top-0 justify-between items-center px-32 py-5 border-b-2 border-[#003BAA]">
@@ -41,20 +52,20 @@ export default function Navbar({ user }: { user?: User }) {
         <input
           type="text"
           placeholder="Rechercher"
-          className="bg-transparent placeholder-[#222222] pr-20"
+          className="bg-transparent placeholder-[#222222] w-96"
         />
       </div>
 
       <ul className="flex space-x-4">
         <li>
           <Link href="/">
-            <Button className="bg-[#003BAA] hover:bg-blue-600">Mes Dons</Button>
+            <Button className="bg-[#003BAA] hover:bg-blue-600">Les Dons</Button>
           </Link>
         </li>
 
-        {user && (
+        {user && firstChat && (
           <li>
-            <Link href="/chat">
+            <Link href={`/chat/${firstChat.id}`}>
               <Button className="text-[#003BAA] border border-[#003BAA]">
                 Messages
               </Button>
@@ -68,9 +79,10 @@ export default function Navbar({ user }: { user?: User }) {
               onClick={handleLogout}
               className="text-[#003BAA] border border-[#003BAA]"
             >
-              Logout
+              Déconnexion
             </Button>
           ) : (
+            // <Button>Mon Compte</Button>
             <Link href="/login">
               <Button className="text-[#003BAA] border border-[#003BAA]">
                 Connexion
