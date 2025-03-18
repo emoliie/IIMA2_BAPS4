@@ -32,9 +32,19 @@ export const useMessage = create<MessageState>()((set) => ({
   setOptimisticIds: (id: string) =>
     set((state) => ({ optimisticIds: [...state.optimisticIds, id] })),
   addMessage: (newMessages) =>
-    set((state) => ({
-      messages: [...state.messages, newMessages],
-    })),
+    set((state) => {
+      const messageFound = state.messages.find(
+        (message) => message.id === newMessages.id
+      );
+      if (messageFound) {
+        return;
+      }
+
+      return {
+        messages: [newMessages, ...state.messages],
+      };
+    }),
+
   setActionMessage: (message) => set(() => ({ actionMessage: message })),
   optimisticDeleteMessage: (messageId) =>
     set((state) => {

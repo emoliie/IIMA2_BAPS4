@@ -7,7 +7,7 @@ import { supabaseBrowser } from "@/lib/supabase/browser";
 import { toast } from "sonner";
 import { ArrowDown } from "lucide-react";
 
-export default function ListMessages({ chatroomId }: { chatroomId: string }) {
+export default function ListMessages( { chatroomId }: { chatroomId: string }) {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [userScrolled, setUserScrolled] = useState(false);
   const [notification, setNotification] = useState(0);
@@ -27,15 +27,19 @@ export default function ListMessages({ chatroomId }: { chatroomId: string }) {
     const fetchMessages = async () => {
       if (!chatroomId) return; // Prevent fetch if chatroomId is undefined
 
+      console.log(chatroomId);
+
       const { data, error } = await supabase
         .from("messages")
-        .select("*")
+        .select("*, users(*)")
         .eq("chatroom_id", chatroomId) // Only get messages for this chatroom
         .order("created_at", { ascending: true });
 
       if (error) {
         toast.error(error.message);
       } else {
+        console.log(data);
+        
         data.forEach(async (msg) => {
           const { data: userData, error: userError } = await supabase
             .from("users")
@@ -60,7 +64,7 @@ export default function ListMessages({ chatroomId }: { chatroomId: string }) {
     const channel = supabase
       .channel(`chatroom-${chatroomId}`) // Unique channel per chatroom
       .on(
-        "postgres_changes",
+        "postgres_changes", // Listen to changes in the messages table
         {
           event: "INSERT",
           schema: "public",
@@ -154,8 +158,8 @@ export default function ListMessages({ chatroomId }: { chatroomId: string }) {
       >
         <div className="flex-1 pb-5 "></div>
         <div className="space-y-7">
-          {messages.map((value, index) => {
-            return <Message key={index} message={value} />;
+          {messages.map((value) => {
+            return <Message key={value.id} message={value} />;
           })}
         </div>
 

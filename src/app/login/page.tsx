@@ -1,7 +1,18 @@
-import React from 'react'
+import Navbar from "@/components/Navbar";
+import React from "react";
+import { supabaseServer } from "@/lib/supabase/server";
+import Login from "@/components/LoginForm";
 
-export default function page() {
+export default async function page() {
+  const supabase = await supabaseServer();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
-    <div>page</div>
-  )
+    <>
+      <Navbar user={user ?? undefined} />
+      <Login />
+    </>
+  );
 }
