@@ -51,24 +51,63 @@ export type Database = {
           }
         ];
       };
-      users: {
+      chatrooms: {
         Row: {
-          avatar_url: string;
-          created_at: string;
-          display_name: string;
           id: string;
+          created_at: string;
+          recipient1: string;
+          recipient2: string;
         };
         Insert: {
-          avatar_url: string;
-          created_at?: string;
-          display_name: string;
           id?: string;
+          created_at?: string;
+          recipient1: string;
+          recipient2: string;
         };
         Update: {
-          avatar_url?: string;
-          created_at?: string;
-          display_name?: string;
           id?: string;
+          created_at?: string;
+          recipient1?: string;
+          recipient2?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "chatrooms_recipient1_fkey";
+            columns: ["recipient1"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          },
+          {
+            foreignKeyName: "chatrooms_recipient2_fkey";
+            columns: ["recipient2"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
+      users: {
+        Row: {
+          id: string;
+          created_at: string;
+          display_name: string;
+          email: string;
+          password: string;
+        };
+        Insert: {
+          id?: string;
+          created_at?: string;
+          display_name: string;
+          email: string;
+          password: string;
+        };
+        Update: {
+          id?: string;
+          created_at?: string;
+          display_name: string;
+          email: string;
+          password: string;
         };
         Relationships: [];
       };

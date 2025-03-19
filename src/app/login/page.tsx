@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import React from "react";
 import { supabaseServer } from "@/lib/supabase/server";
 import Login from "@/components/LoginForm";
+import Footer from "@/components/Footer";
 
 export default async function page() {
   const supabase = await supabaseServer();
@@ -13,6 +14,7 @@ export default async function page() {
     <>
       <Navbar user={user ?? undefined} />
       <Login />
+      <Footer />
     </>
   );
 }
