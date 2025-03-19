@@ -5,30 +5,25 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
-export default function UsersList({
+export default function ChatroomsList({
   user,
-  users,
+  chatrooms,
 }: {
   user: User;
-  users: User[];
+  chatrooms: [];
 }) {
   const router = useRouter();
+
   useEffect(() => {
-    function fetchUsers() {
-      if (!user) {
-        return router.push("/");
-      }
-
-      console.log(users);
+    if (!chatrooms || !Array.isArray(chatrooms)) {
+      console.error("Chatrooms is not an array:", chatrooms);
+      router.push("/");
     }
-    fetchUsers();
-  }, []);
-
-  console.log("users:", users);
+  }, [chatrooms, router]);
 
   return (
     <aside className="w-1/4 border-r">
-      {users.map((user) => (
+      {/* {users.map((user) => (
         <div key={user.id} className="flex items-center gap-2 p-2">
           <Image
             src={user.avatar_url}
@@ -38,6 +33,16 @@ export default function UsersList({
             className="rounded-full ring-2"
           />
           <h2 className="font-bold">{user.display_name}</h2>
+        </div>
+      ))} */}
+
+      {chatrooms.map((chatroom) => (
+        <div key={chatroom.id} className="flex items-center gap-2 p-2">
+          {chatroom.recipient1 !== user.id ? (
+            <h2 className="font-bold">{chatroom.recipient1}</h2>
+          ) : (
+            <h2 className="font-bold">{chatroom.recipient2}</h2>
+          )}
         </div>
       ))}
     </aside>

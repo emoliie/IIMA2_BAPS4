@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "@/components/Navbar";
 import { supabaseServer } from "@/lib/supabase/server";
 import HeroSection from "@/components/HeroSection";
-import UseSection from "@/components/UseSection";
+import UseSection from "@/components/UserSection";
 
 export default async function page() {
   const supabase = await supabaseServer();

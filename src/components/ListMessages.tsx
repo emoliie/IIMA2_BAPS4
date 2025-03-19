@@ -38,7 +38,7 @@ export default function ListMessages( { chatroomId }: { chatroomId: string }) {
       if (error) {
         toast.error(error.message);
       } else {
-        console.log(data);
+        // console.log(data);
         
         data.forEach(async (msg) => {
           const { data: userData, error: userError } = await supabase

@@ -27,8 +27,12 @@ export default function Navbar({ user }: { user?: User }) {
   const [firstChat, setFirstChat] = useState<any>(null);
 
   const loadChats = async () => {
-    const firstChat = await supabase.from("chatrooms").select("id").single();
-    setFirstChat(firstChat.data);
+    const firstChat = await supabase
+      .from("chatrooms")
+      .select("id")
+      .or(`recipient1.eq.${user?.id},recipient2.eq.${user?.id}`)
+      .limit(1);
+    setFirstChat(firstChat.data?.length ? firstChat.data[0] : null);
   };
 
   useEffect(() => {
