@@ -8,7 +8,7 @@ export default function RegisterForm() {
       <h1 className="text-3xl text-center mb-6">
         Connectez-vous ou créez-vous un compte
       </h1>
-      <div className="flex flex-col justify-center items-center w-full max-w-2xl bg-[#E6F3FF] rounded-2xl py-10">
+      <div className="flex flex-col justify-center items-center w-full max-w-2xl bg-customWhite rounded-2xl py-10">
         {errorMessage && (
           <p className="text-red-600 text-sm mb-4">{errorMessage}</p>
         )}

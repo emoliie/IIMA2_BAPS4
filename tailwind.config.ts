@@ -10,6 +10,23 @@ export default {
   theme: {
     extend: {
       colors: {
+        primaryBlue: {
+          DEFAULT: "hsl(var(--primary-blue))",
+          foreground: "hsl(var(--primary-blue-foreground))",
+        },
+        customGray: {
+          DEFAULT: "hsl(var(--custom-gray))",
+          foreground: "hsl(var(--custom-gray-foreground))",
+        },
+        secondaryGreen: {
+          DEFAULT: "hsl(var(--secondary-green))",
+          foreground: "hsl(var(--secondary-green-foreground))",
+        },
+        customWhite: {
+          DEFAULT: "hsl(var(--custom-white))",
+          foreground: "hsl(var(--custom-white-foreground))",
+        },
+        
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

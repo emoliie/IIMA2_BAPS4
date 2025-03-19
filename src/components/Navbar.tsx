@@ -40,7 +40,7 @@ export default function Navbar({ user }: { user?: User }) {
   }, []);
 
   return (
-    <nav className="flex top-0 justify-between items-center px-32 py-5 border-b-2 border-[#003BAA]">
+    <nav className="flex top-0 justify-between items-center px-32 py-5 border-b-2 border-primaryBlue">
       <Link href="/">
         <Image
           src="/Logo_Rueil-Malmaison.png"
@@ -52,25 +52,27 @@ export default function Navbar({ user }: { user?: User }) {
       </Link>
 
       <div className="flex gap-2 bg-[#DEDEDE] px-5 py-2 rounded-full">
-        <Search size={24} className="text-[#222222]" />
+        <Search size={24} className="text-customGray" />
         <input
           type="text"
           placeholder="Rechercher"
-          className="bg-transparent placeholder-[#222222] w-96"
+          className="bg-transparent placeholder-customGray w-96"
         />
       </div>
 
       <ul className="flex space-x-4">
         <li>
           <Link href="/">
-            <Button className="bg-[#003BAA] hover:bg-blue-600">Les Dons</Button>
+            <Button className="bg-primaryBlue hover:bg-blue-600">
+              Les Dons
+            </Button>
           </Link>
         </li>
 
         {user && firstChat && (
           <li>
             <Link href={`/chat/${firstChat.id}`}>
-              <Button className="text-[#003BAA] border border-[#003BAA]">
+              <Button className="text-primaryBlue border border-primaryBlue">
                 Messages
               </Button>
             </Link>
@@ -81,14 +83,14 @@ export default function Navbar({ user }: { user?: User }) {
           {user ? (
             <Button
               onClick={handleLogout}
-              className="text-[#003BAA] border border-[#003BAA]"
+              className="text-primaryBlue border border-primaryBlue"
             >
               Déconnexion
             </Button>
           ) : (
             // <Button>Mon Compte</Button>
             <Link href="/login">
-              <Button className="text-[#003BAA] border border-[#003BAA]">
+              <Button className="text-primaryBlue border border-primaryBlue">
                 Connexion
               </Button>
             </Link>
