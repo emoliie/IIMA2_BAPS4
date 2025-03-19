@@ -7,7 +7,7 @@ import { supabaseBrowser } from "@/lib/supabase/browser";
 import { toast } from "sonner";
 import { ArrowDown } from "lucide-react";
 
-export default function ListMessages( { chatroomId }: { chatroomId: string }) {
+export default function ListMessages({ chatroomId }: { chatroomId: string }) {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [userScrolled, setUserScrolled] = useState(false);
   const [notification, setNotification] = useState(0);
@@ -39,7 +39,7 @@ export default function ListMessages( { chatroomId }: { chatroomId: string }) {
         toast.error(error.message);
       } else {
         // console.log(data);
-        
+
         data.forEach(async (msg) => {
           const { data: userData, error: userError } = await supabase
             .from("users")

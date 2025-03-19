@@ -1,12 +1,17 @@
 import React from "react";
 import InitUser from "@/lib/store/InitUser";
-import ChatInput from "@/components/ChatInput";
 import { supabaseServer } from "@/lib/supabase/server";
 import Navbar from "@/components/Navbar";
-import ListMessages from "@/components/ListMessages";
-import ChatroomsList from "@/components/ChatroomsList";
+import ListMessages from "@/components/chat/ListMessages";
+import ChatroomsList from "@/components/chat/ChatroomsList";
+import ChatInput from "@/components/chat/ChatInput";
+import Footer from "@/components/Footer";
 
-export default async function page({ params }) {
+interface PageParams {
+  room: string;
+}
+
+export default async function page({ params }: { params: PageParams }) {
   const supabase = await supabaseServer();
   const { data } = await supabase.auth.getSession();
 
@@ -32,13 +37,16 @@ export default async function page({ params }) {
       <Navbar user={data.session?.user} />
       <div className="max-w-3xl mx-auto md:py-10 h-screen">
         <div className="h-full border rounded-md flex relative w-full">
-          <ChatroomsList user={user} chatrooms={chatrooms ?? undefined} />
+          {user && (
+            <ChatroomsList user={user} chatrooms={chatrooms ?? undefined} />
+          )}
           <div className="h-full flex flex-col w-3/4 flex-3">
             <ListMessages chatroomId={params.room} />
-            <ChatInput />
+            <ChatInput chatroomId={params.room} />
           </div>
         </div>
       </div>
+      <Footer />
       <InitUser user={data.session?.user} />
     </>
   );

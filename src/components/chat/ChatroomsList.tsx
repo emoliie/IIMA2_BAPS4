@@ -1,8 +1,8 @@
 "use client";
 
+import { ChatRoom } from "@/lib/store/chatrooms";
 import { User } from "@supabase/supabase-js";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -11,7 +11,7 @@ export default function ChatroomsList({
   chatrooms,
 }: {
   user: User;
-  chatrooms: [];
+  chatrooms: ChatRoom[];
 }) {
   const router = useRouter();
 
@@ -27,9 +27,12 @@ export default function ChatroomsList({
       {chatrooms.map((chatroom) => (
         <div key={chatroom.id}>
           {chatroom.recipient1.id !== user.id ? (
-            <Link
-              href={`/chat/${chatroom.id}`}
-              className="flex items-center gap-2 p-4 border-b"
+            <div
+              className="flex items-center gap-2 p-4 border-b cursor-pointer"
+              onClick={() => {
+                router.push(`/chat/${chatroom.id}`);
+                router.refresh();
+              }}
             >
               <Image
                 src={chatroom.recipient1.avatar_url}
@@ -39,11 +42,14 @@ export default function ChatroomsList({
                 className="rounded-full ring-2"
               />
               <h2 className="font-bold">{chatroom.recipient1.display_name}</h2>
-            </Link>
+            </div>
           ) : (
-            <Link
-              href={`/chat/${chatroom.id}`}
-              className="flex items-center gap-2 p-4 border-b"
+            <div
+              className="flex items-center gap-2 p-4 border-b cursor-pointer"
+              onClick={() => {
+                router.push(`/chat/${chatroom.id}`);
+                router.refresh();
+              }}
             >
               <Image
                 src={chatroom.recipient2.avatar_url}
@@ -53,7 +59,7 @@ export default function ChatroomsList({
                 className="rounded-full ring-2"
               />
               <h2 className="font-bold">{chatroom.recipient2.display_name}</h2>
-            </Link>
+            </div>
           )}
         </div>
       ))}

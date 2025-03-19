@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Input } from "./ui/input";
+import { Input } from "../ui/input";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
@@ -12,7 +12,7 @@ interface ChatInputProps {
   chatroomId: string | null; // Ensure we get a valid chatroom ID
 }
 
-export default function ChatInput() {
+export default function ChatInput({ chatroomId }: ChatInputProps) {
   const user = useUser((state) => state.user);
   const addMessage = useMessage((state) => state.addMessage);
   const setOptimisticIds = useMessage((state) => state.setOptimisticIds);
@@ -38,7 +38,11 @@ export default function ChatInput() {
       addMessage(newMessage as Imessage);
       setOptimisticIds(newMessage.id);
 
-      const { error } = await supabase.from("messages").insert({ text, id });
+      const { error } = await supabase.from("messages").insert({ 
+        text, 
+        id, 
+        chatroom_id: chatroomId || "" // Ensure chatroom_id is provided
+      });
       if (error) {
         toast.error(error.message);
       }

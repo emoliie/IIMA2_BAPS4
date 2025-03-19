@@ -1,4 +1,4 @@
-import CreateChatroom from "@/components/CreateChatroom";
+import CreateChatroom from "@/components/chat/CreateChatroom";
 import { supabaseServer } from "@/lib/supabase/server";
 import React from "react";
 
