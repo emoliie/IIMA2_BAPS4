@@ -2,6 +2,7 @@
 
 import { User } from "@supabase/supabase-js";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 
@@ -23,25 +24,36 @@ export default function ChatroomsList({
 
   return (
     <aside className="w-1/4 border-r">
-      {/* {users.map((user) => (
-        <div key={user.id} className="flex items-center gap-2 p-2">
-          <Image
-            src={user.avatar_url}
-            alt={`Avatar of ${user.display_name}`}
-            width={40}
-            height={40}
-            className="rounded-full ring-2"
-          />
-          <h2 className="font-bold">{user.display_name}</h2>
-        </div>
-      ))} */}
-
       {chatrooms.map((chatroom) => (
-        <div key={chatroom.id} className="flex items-center gap-2 p-2">
-          {chatroom.recipient1 !== user.id ? (
-            <h2 className="font-bold">{chatroom.recipient1}</h2>
+        <div key={chatroom.id}>
+          {chatroom.recipient1.id !== user.id ? (
+            <Link
+              href={`/chat/${chatroom.id}`}
+              className="flex items-center gap-2 p-4 border-b"
+            >
+              <Image
+                src={chatroom.recipient1.avatar_url}
+                alt={`Avatar of ${chatroom.recipient1.display_name}`}
+                width={40}
+                height={40}
+                className="rounded-full ring-2"
+              />
+              <h2 className="font-bold">{chatroom.recipient1.display_name}</h2>
+            </Link>
           ) : (
-            <h2 className="font-bold">{chatroom.recipient2}</h2>
+            <Link
+              href={`/chat/${chatroom.id}`}
+              className="flex items-center gap-2 p-4 border-b"
+            >
+              <Image
+                src={chatroom.recipient2.avatar_url}
+                alt={`Avatar of ${chatroom.recipient2.display_name}`}
+                width={40}
+                height={40}
+                className="rounded-full ring-2"
+              />
+              <h2 className="font-bold">{chatroom.recipient2.display_name}</h2>
+            </Link>
           )}
         </div>
       ))}

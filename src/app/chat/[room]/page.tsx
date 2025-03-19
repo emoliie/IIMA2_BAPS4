@@ -16,11 +16,13 @@ export default async function page({ params }) {
 
   const { data: chatrooms, error } = await supabase
     .from("chatrooms")
-    .select(`
+    .select(
+      `
       id,
       recipient1:users!recipient1(*),
       recipient2:users!recipient2(*)
-    `)
+    `
+    )
     .or(`recipient1.eq.${user?.id},recipient2.eq.${user?.id}`);
 
   console.log("chatrooms", chatrooms);
