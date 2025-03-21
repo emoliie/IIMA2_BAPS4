@@ -10,20 +10,21 @@ import { supabaseBrowser } from "@/lib/supabase/browser";
 import { Search } from "lucide-react";
 import { useSession } from "@/lib/hooks/useSession";
 
-export default function Navbar({ user }: { user?: User }) {
+export default function Navbar() {
   const router = useRouter();
+  const { getSession, destroySession } = useSession();
 
   const supabase = supabaseBrowser();
   // Function to handle logout
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-      console.error("Logout Error", error.message);
-    } else {
-      router.push("/"); // Redirige vers la page d'accueil après déconnexion
-    }
+    destroySession();
+    router.push("/login");
   };
+
+  const sessionUserId = getSession();
+  // useEffect(() => {
+  //   console.log("session id :", sessionUserId);
+  // }, []);
 
   const [firstChat, setFirstChat] = useState<any>(null);
 
@@ -31,20 +32,13 @@ export default function Navbar({ user }: { user?: User }) {
     const firstChat = await supabase
       .from("chatrooms")
       .select("id")
-      .or(`recipient1.eq.${user?.id},recipient2.eq.${user?.id}`)
+      .or(`recipient1.eq.${sessionUserId},recipient2.eq.${sessionUserId}`)
       .limit(1);
     setFirstChat(firstChat.data?.length ? firstChat.data[0] : null);
   };
 
   useEffect(() => {
     loadChats();
-  }, []);
-
-  const { createSession, getSession } = useSession();
-
-  useEffect(() => {
-    // createSession("cc");
-    console.log(getSession());
   }, []);
 
   return (
@@ -77,18 +71,21 @@ export default function Navbar({ user }: { user?: User }) {
           </Link>
         </li>
 
-        {user && firstChat && (
-          <li>
-            <Link href={`/chat/${firstChat.id}`}>
-              <Button className="text-primaryBlue border border-primaryBlue">
-                Messages
-              </Button>
-            </Link>
-          </li>
-        )}
+        {
+          // sessionUserId &&
+          firstChat && (
+            <li>
+              <Link href={`/chat/${firstChat.id}`}>
+                <Button className="text-primaryBlue border border-primaryBlue">
+                  Messages
+                </Button>
+              </Link>
+            </li>
+          )
+        }
 
         <li>
-          {user ? (
+          {sessionUserId ? (
             <Button
               onClick={handleLogout}
               className="text-primaryBlue border border-primaryBlue"

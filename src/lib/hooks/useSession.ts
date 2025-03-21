@@ -7,5 +7,8 @@ export const useSession = () => {
     getSession: () => {
       return localStorage.getItem("sessionUserId");
     },
+    destroySession: () => {
+      localStorage.removeItem("sessionUserId");
+    },
   };
 };
