@@ -8,6 +8,7 @@ import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { Search } from "lucide-react";
+import { useSession } from "@/lib/hooks/useSession";
 
 export default function Navbar({ user }: { user?: User }) {
   const router = useRouter();
@@ -37,6 +38,13 @@ export default function Navbar({ user }: { user?: User }) {
 
   useEffect(() => {
     loadChats();
+  }, []);
+
+  const { createSession, getSession } = useSession();
+
+  useEffect(() => {
+    // createSession("cc");
+    console.log(getSession());
   }, []);
 
   return (

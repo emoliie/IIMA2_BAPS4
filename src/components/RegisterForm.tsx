@@ -4,40 +4,58 @@ import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { supabaseBrowser } from "@/lib/supabase/browser";
-import Image from "next/image";
-import Link from "next/link";
 import { toast } from "sonner";
+import bcrypt from "bcryptjs";
+import Link from "next/link";
+import { useSession } from "@/lib/hooks/useSession";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { createSession, getSession } = useSession();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!name || !email || !password) {
       toast.error("Tous les champs sont requis !");
     }
 
-    setLoading(true);
-
     const supabase = supabaseBrowser();
-    const { data, error } = await supabase.from("users").insert({
-      display_name: name,
-      email,
-      password,
-    });
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Insérer l'utilisateur dans la base de données
+    try {
+      const { data, error } = await supabase
+        .from("users")
+        .insert({
+          display_name: name,
+          email,
+          password: hashedPassword,
+        })
+        .select("*")
+        .single();
+
+      console.log("data", data);
+
+      if (error) {
+        toast.error("Cet e-mail existe déjà !");
+        console.error("Erreur d'insertion dans la base de données:", error);
+      } else {
+        toast.success("Connexion réussie !");
+
+        createSession(data.id);
+
+        window.location.href = "/";
+      }
+    } catch (error) {
+      console.error("Erreur lors de la création de l'utilisateur:", error);
+    }
 
     setLoading(false);
-
-    if (error) {
-      toast.error(error.message);
-    } else {
-      toast.success("Connexion réussie !");
-      console.log(name, email, password);
-    }
   };
 
   return (
@@ -75,12 +93,19 @@ export default function Register() {
           />
           <Button
             type="submit"
-            className="bg-blue-600 text-white p-2"
+            className="mt-4 bg-secondaryGreen text-black p-2 hover:border-2 hover:border-secondaryGreen hover:text-secondaryGreen"
             disabled={loading}
           >
             {loading ? "Inscription..." : "S'inscrire"}
           </Button>
         </form>
+        <span className="my-8 border-t border-gray-600/50 w-2/3" />
+        <p>
+          Déjà un compte ?&nbsp;
+          <Link href="/login" className="text-secondaryGreen">
+            Connectez-vous
+          </Link>
+        </p>
       </div>
     </div>
   );
