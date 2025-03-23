@@ -15,11 +15,19 @@ const CreateProduct = () => {
         urgent: false,
         usertaker: "b135f4f9-29de-4c24-9a1d-9221397af508",
         reserved: false,
+        category: "",
     });
 
-
+    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value, type} = e.target;
+        setProduct((prevProduct) => ({
+            ...prevProduct,
+            [name]: value,
+        }));
+    };
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
         setProduct((prevProduct) => ({
             ...prevProduct,
             [name]: value,
@@ -55,7 +63,39 @@ const CreateProduct = () => {
         <div>
             <h1>Nouveau Don</h1>
             <form onSubmit={handleCreateProduct} >
+                <div>
+                    <div>
+                        <input type="text" name="name" placeholder="Nom" value={product.name} onChange={handleChange} required />
+                        <select name="category" onChange={handleSelectChange}>
+                            <option value="fruts">Fruits</option>
+                            <option value="vegetables">Légumes</option>
+                            <option value="meat">Viande</option>
+                            <option value="fish">Poisson</option>
+                            <option value="dairy">Produits laitiers</option>
+                            <option value="starchy">Féculents</option>
+                            <option value="other">Autres</option>
+                        </select>
+                        <input type="date" name="expiration" placeholder="Date d'expiration" value={product.expiration} onChange={handleChange} required />
+                    </div>
+                    <div>
+                        <input type="file" name="photo" onChange={handleFileChange}  required />
+                    </div>
+                </div>
+                <div>
+                    
+                </div>
+            </form>
+            <form>
                 <input type="text" name="name" placeholder="Nom" value={product.name} onChange={handleChange} required />
+                <select name="category" onChange={handleSelectChange}>
+                    <option value="fruts">Fruits</option>
+                    <option value="vegetables">Légumes</option>
+                    <option value="meat">Viande</option>
+                    <option value="fish">Poisson</option>
+                    <option value="dairy">Produits laitiers</option>
+                    <option value="starchy">Féculents</option>
+                    <option value="other">Autres</option>
+                </select>
                 <input type="file" name="photo" onChange={handleFileChange}  required />
                 <input type="text" name="place" placeholder="Lieu" value={product.place} onChange={handleChange} required />
                 <input type="date" name="expiration" placeholder="Date d'expiration" value={product.expiration} onChange={handleChange} required />

@@ -86,6 +86,7 @@ export type Database = {
           usertaker: string;
           reserved: boolean;
           created_at: Date;
+          category: string;
         }
         Insert: {
           id?: string;
@@ -100,6 +101,7 @@ export type Database = {
           usertaker: string;
           reserved: boolean;
           created_at: Date;
+          category: string;
         }
         Update: {
           id?: string;
@@ -114,6 +116,7 @@ export type Database = {
           usertaker?: string;
           reserved?: boolean;
           created_at?: Date;
+          category: string;
         }
       }
     };
