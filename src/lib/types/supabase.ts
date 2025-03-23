@@ -72,6 +72,50 @@ export type Database = {
         };
         Relationships: [];
       };
+      produits:{
+        Row: {
+          id: string;
+          name: string;
+          photo: string;
+          userid: string;
+          price: number;
+          place: string;
+          expiration: Date;
+          description: string;
+          urgent: boolean;
+          usertaker: string;
+          reserved: boolean;
+          created_at: Date;
+        }
+        Insert: {
+          id?: string;
+          name: string;
+          photo: string;
+          userid: string;
+          price: number;
+          place: string;
+          expiration: Date;
+          description: string;
+          urgent: boolean;
+          usertaker: string;
+          reserved: boolean;
+          created_at: Date;
+        }
+        Update: {
+          id?: string;
+          name?: string;
+          photo?: string;
+          userid?: string;
+          price?: number;
+          place?: string;
+          expiration?: Date;
+          description?: string;
+          urgent?: boolean;
+          usertaker?: string;
+          reserved?: boolean;
+          created_at?: Date;
+        }
+      }
     };
     Views: {
       [_ in never]: never;
