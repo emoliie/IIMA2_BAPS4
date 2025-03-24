@@ -56,12 +56,14 @@ export default function Chatroom(props: ChatroomProps) {
   }, [sessionUserId, room]);
 
   return (
-    <div className="max-w-3xl mx-auto md:py-10 h-screen">
-      <div className="h-4/5 border rounded-md flex relative w-full">
+    <div className="max-w-3xl mx-auto h-screen flex items-center justify-center">
+      <div className="h-4/5 flex relative w-full gap-8">
         <ChatroomsList chatrooms={chatrooms ?? []} />
         {room && (
-          <div className="h-full flex flex-col w-3/4 flex-3">
-            <div className="bg-gray-200 p-5"></div>
+          <div className="border rounded-lg overflow-hidden h-full flex flex-col w-3/4 flex-3">
+            <div className="bg-gray-200 p-5">
+              <p className="font-semibold">CC</p>
+            </div>
             <ListMessages chatroomId={room} />
             <ChatInput chatroomId={room} />
           </div>

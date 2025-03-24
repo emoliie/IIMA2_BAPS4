@@ -2,11 +2,9 @@
 
 import { useSession } from "@/lib/hooks/useSession";
 import { ChatRoom } from "@/lib/store/chatrooms";
-import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
-import { toast } from "sonner";
 
 export default function ChatroomsList({
   chatrooms,
@@ -30,7 +28,10 @@ export default function ChatroomsList({
   }, [chatrooms, router]);
 
   return (
-    <aside className="w-1/4 border-r">
+    <aside className="w-1/4 border rounded-lg overflow-hidden">
+      <div className="bg-primaryBlue p-5">
+        <p className="text-white font-semibold text-center">Messages privés</p>
+      </div>
       {chatrooms.map((chatroom) => (
         <div key={chatroom.id}>
           {chatroom.recipient1.id !== sessionUserId ? (
