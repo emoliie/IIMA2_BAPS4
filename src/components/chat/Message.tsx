@@ -81,7 +81,7 @@ const MessageMenu = ({ message }: { message: Imessage }) => {
             setActionMessage(message);
           }}
         >
-          Edit
+          Modifier
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => {
@@ -89,7 +89,7 @@ const MessageMenu = ({ message }: { message: Imessage }) => {
             setActionMessage(message);
           }}
         >
-          Delete
+          Supprimer
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

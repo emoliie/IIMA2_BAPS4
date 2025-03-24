@@ -49,15 +49,14 @@ export default function Navbar() {
         />
       </Link>
 
-
-      <div className="hidden lg:flex gap-2 bg-[#DEDEDE] px-5 py-2 rounded-full">
+      {/* <div className="hidden lg:flex gap-2 bg-[#DEDEDE] px-5 py-2 rounded-full">
         <Search size={24} className="text-customGray" />
         <input
           type="text"
           placeholder="Rechercher"
           className="bg-transparent placeholder-customGray lg:w-96"
         />
-      </div>
+      </div> */}
 
       <ul className="flex space-x-4">
         <li>
