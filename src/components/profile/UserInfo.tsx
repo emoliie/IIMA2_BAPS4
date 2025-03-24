@@ -6,6 +6,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { Input } from "../ui/input";
 
 export default function UserInfo() {
   const { getSession, destroySession } = useSession();
@@ -39,7 +40,7 @@ export default function UserInfo() {
   return (
     <div className="h-screen flex flex-col items-center justify-center">
       <h1 className="text-3xl text-center mb-6">Mon profil</h1>
-      <div className="bg-customWhite rounded-2xl w-full max-w-2xl py-10 flex flex-col items-center justify-center">
+      <div className="bg-customWhite rounded-2xl w-full max-w-2xl py-10 flex flex-col items-center justify-center gap-2">
         <Image
           src="/avatar.png"
           alt="avatar"

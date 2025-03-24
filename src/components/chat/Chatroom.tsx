@@ -62,7 +62,7 @@ export default function Chatroom(props: ChatroomProps) {
         {room && (
           <div className="border rounded-lg overflow-hidden h-full flex flex-col w-3/4 flex-3">
             <div className="bg-gray-200 p-5">
-              <p className="font-semibold">CC</p>
+              <p className="font-semibold">test</p>
             </div>
             <ListMessages chatroomId={room} />
             <ChatInput chatroomId={room} />

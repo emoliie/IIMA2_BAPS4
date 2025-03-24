@@ -4,12 +4,10 @@ import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { supabaseBrowser } from "@/lib/supabase/browser";
-import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";
 import bcrypt from "bcryptjs";
 import { useSession } from "@/lib/hooks/useSession";
-import { useUserStore } from "@/lib/store/user";
 import { useUser } from "@/lib/hooks/useUser";
 
 export default function Login() {
@@ -72,7 +70,6 @@ export default function Login() {
 
     setLoading(false);
   };
-
 
   return (
     <div className="flex flex-col justify-center items-center px-4 my-52">

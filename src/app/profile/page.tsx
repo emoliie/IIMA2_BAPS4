@@ -6,9 +6,7 @@ import React from "react";
 export default function page() {
   return (
     <>
-      <Navbar />
       <UserInfo />
-      <Footer />
     </>
   );
 }

@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer className="flex items-center justify-between gap-8 bg-primaryBlue px-20 py-10 lg:px- lg:py-20 relative z-1">
+    <footer className="flex items-center justify-between gap-8 bg-primaryBlue px-20 py-10 lg:px-20 lg:py-10 relative z-1">
       <Image
         src="/logo-footer.png"
         alt="Logo Ville Impériale"

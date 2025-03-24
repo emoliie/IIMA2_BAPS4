@@ -10,14 +10,9 @@ interface PageParams {
 }
 
 export default async function page({ params }: { params: PageParams }) {
-
-  
   return (
     <>
-      <Navbar />
-      <Chatroom room={params.room}/>
-      <Footer />
-      {/* <InitUser user={data.session?.user} /> */}
+      <Chatroom room={params.room} />
     </>
   );
 }
