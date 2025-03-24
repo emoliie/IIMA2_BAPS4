@@ -14,7 +14,7 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const { createSession, getSession } = useSession();
+  const { createSession } = useSession();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -65,7 +65,7 @@ export default function Register() {
         {/* Formulaire d'inscription */}
         <form
           onSubmit={handleRegister}
-          className="w-full px-40 flex flex-col justify-center items-center gap-3"
+          className="w-full px-20 md:px-40 flex flex-col justify-center items-center gap-3"
         >
           <label className="w-full">Pseudo</label>
           <Input

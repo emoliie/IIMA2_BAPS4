@@ -73,27 +73,14 @@ export default function Login() {
     setLoading(false);
   };
 
-  // const handleLoginWithGoogle = async () => {
-  //   const supabase = supabaseBrowser();
-  //   const { error } = await supabase.auth.signInWithOAuth({
-  //     provider: "google",
-  //     options: {
-  //       redirectTo: `${window.location.origin}/auth/callback`,
-  //     },
-  //   });
-  //   if (error) {
-  //     toast.error("Une erreur est survenue lors de la connexion avec Google.");
-  //   }
-  // };
 
   return (
-    <div className="flex flex-col justify-center items-center px-4 my-40">
+    <div className="flex flex-col justify-center items-center px-4 my-52">
       <h1 className="text-3xl text-center mb-6">Connexion</h1>
       <div className="flex flex-col justify-center items-center w-full max-w-2xl bg-customWhite rounded-2xl py-10">
-        {/* Formulaire de connexion */}
         <form
           onSubmit={handleLogin}
-          className="w-full px-40 flex flex-col justify-center items-center gap-3"
+          className="w-full px-20 md:px-40 flex flex-col justify-center items-center gap-3"
         >
           <label className="w-full">E-mail</label>
           <Input
@@ -120,21 +107,6 @@ export default function Login() {
           </Button>
         </form>
 
-        {/* <p className="text-gray-600 text-sm mt-4">Ou</p> */}
-
-        {/* Bouton Google
-        <Button
-          onClick={handleLoginWithGoogle}
-          className="bg-white text-black mt-2"
-        >
-          <Image
-            src="/google-icon.svg"
-            alt="Icône Google"
-            width={20}
-            height={20}
-          />
-          <span>Se connecter avec Google</span>
-        </Button> */}
         <span className="my-8 border-t border-gray-600/50 w-2/3" />
 
         <p>
