@@ -33,7 +33,10 @@ body {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
-    --primary-color: #003baa;
+    --primary-blue: 219, 100%, 34%;
+    --secondary-green: 150, 89%, 57%;
+    --custom-gray: 0, 0%, 13%;
+    --custom-white: 210, 100%, 94%;
   }
 }
 

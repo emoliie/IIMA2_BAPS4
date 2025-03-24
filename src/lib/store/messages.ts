@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { User } from "./user";
 
 export type Imessage = {
   created_at: string;
@@ -6,12 +7,7 @@ export type Imessage = {
   is_edit: boolean;
   send_by: string;
   text: string;
-  users: {
-    avatar_url: string;
-    created_at: string;
-    display_name: string;
-    id: string;
-  } | null;
+  user: User;
 };
 
 interface MessageState {
@@ -23,6 +19,7 @@ interface MessageState {
   optimisticDeleteMessage: (messageId: string) => void;
   optimisticUpdateMessage: (message: Imessage) => void;
   setOptimisticIds: (id: string) => void;
+  clearMessages: () => void;
 }
 
 export const useMessage = create<MessageState>()((set) => ({
@@ -33,14 +30,14 @@ export const useMessage = create<MessageState>()((set) => ({
     set((state) => ({ optimisticIds: [...state.optimisticIds, id] })),
   addMessage: (newMessage) =>
     set((state) => {
-      if(!state) {
-        return { messages: [newMessage]};
+      if (!state) {
+        return { messages: [newMessage] };
       }
       const messageFound = state.messages.find(
         (message) => message.id === newMessage.id
       );
       if (messageFound) {
-        return { messages: state.messages};
+        return { messages: state.messages };
       }
 
       return {
@@ -66,4 +63,5 @@ export const useMessage = create<MessageState>()((set) => ({
         }),
       };
     }),
+  clearMessages: () => set({ messages: [] }),
 }));

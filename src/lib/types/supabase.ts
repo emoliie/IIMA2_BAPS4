@@ -4,91 +4,187 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[];
+  | Json[]
 
 export type Database = {
   public: {
     Tables: {
-      messages: {
+      chatrooms: {
         Row: {
-          created_at: string;
-          id: string;
-          is_edit: boolean;
-          send_by: string;
-          text: string;
-          chatroom_id: string;
-        };
+          created_at: string | null
+          id: string
+          recipient1: string
+          recipient2: string
+        }
         Insert: {
-          created_at?: string;
-          id?: string;
-          is_edit?: boolean;
-          send_by?: string;
-          text: string;
-          chatroom_id: string;
-        };
+          created_at?: string | null
+          id?: string
+          recipient1: string
+          recipient2: string
+        }
         Update: {
-          created_at?: string;
-          id?: string;
-          is_edit?: boolean;
-          send_by?: string;
-          text?: string;
-          chatroom_id: string;
-        };
+          created_at?: string | null
+          id?: string
+          recipient1?: string
+          recipient2?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "message_send_by_fkey";
-            columns: ["send_by"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
+            foreignKeyName: "chatrooms_recipient1_fkey"
+            columns: ["recipient1"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "messages_chatroom_id_fkey";
-            columns: ["chatroom_id"];
-            isOneToOne: false;
-            referencedRelation: "chatrooms";
-            referencedColumns: ["id"];
-          }
-        ];
-      };
+            foreignKeyName: "chatrooms_recipient2_fkey"
+            columns: ["recipient2"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          chatroom_id: string
+          created_at: string
+          id: string
+          is_edit: boolean
+          send_by: string
+          text: string
+        }
+        Insert: {
+          chatroom_id: string
+          created_at?: string
+          id?: string
+          is_edit?: boolean
+          send_by?: string
+          text: string
+        }
+        Update: {
+          chatroom_id?: string
+          created_at?: string
+          id?: string
+          is_edit?: boolean
+          send_by?: string
+          text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "message_send_by_fkey"
+            columns: ["send_by"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "messages_chatroom_id_fkey"
+            columns: ["chatroom_id"]
+            isOneToOne: false
+            referencedRelation: "chatrooms"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      produits: {
+        Row: {
+          created_at: string
+          description: string | null
+          expiration: string | null
+          id: number
+          name: string
+          photo: string
+          place: string | null
+          reserved: boolean | null
+          urgent: boolean
+          userid: string
+          usertaker: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          expiration?: string | null
+          id?: number
+          name: string
+          photo: string
+          place?: string | null
+          reserved?: boolean | null
+          urgent: boolean
+          userid: string
+          usertaker?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          expiration?: string | null
+          id?: number
+          name?: string
+          photo?: string
+          place?: string | null
+          reserved?: boolean | null
+          urgent?: boolean
+          userid?: string
+          usertaker?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "produits_userid_fkey"
+            columns: ["userid"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "produits_usertaker_fkey"
+            columns: ["usertaker"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
-          avatar_url: string;
-          created_at: string;
-          display_name: string;
-          id: string;
-        };
+          created_at: string
+          display_name: string
+          email: string
+          id: string
+          password: string
+        }
         Insert: {
-          avatar_url: string;
-          created_at?: string;
-          display_name: string;
-          id?: string;
-        };
+          created_at?: string
+          display_name: string
+          email: string
+          id?: string
+          password: string
+        }
         Update: {
-          avatar_url?: string;
-          created_at?: string;
-          display_name?: string;
-          id?: string;
-        };
-        Relationships: [];
-      };
-    };
+          created_at?: string
+          display_name?: string
+          email?: string
+          id?: string
+          password?: string
+        }
+        Relationships: []
+      }
+    }
     Views: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Functions: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Enums: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
-};
+      [_ in never]: never
+    }
+  }
+}
 
-type PublicSchema = Database[Extract<keyof Database, "public">];
+type PublicSchema = Database[Extract<keyof Database, "public">]
 
 export type Tables<
   PublicTableNameOrOptions extends
@@ -97,23 +193,23 @@ export type Tables<
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
         Database[PublicTableNameOrOptions["schema"]]["Views"])
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R;
+      Row: infer R
     }
     ? R
     : never
   : PublicTableNameOrOptions extends keyof (PublicSchema["Tables"] &
-      PublicSchema["Views"])
-  ? (PublicSchema["Tables"] &
-      PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-      Row: infer R;
-    }
-    ? R
+        PublicSchema["Views"])
+    ? (PublicSchema["Tables"] &
+        PublicSchema["Views"])[PublicTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
     : never
-  : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -121,20 +217,20 @@ export type TablesInsert<
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I;
+      Insert: infer I
     }
     ? I
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-  ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-      Insert: infer I;
-    }
-    ? I
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
     : never
-  : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -142,20 +238,20 @@ export type TablesUpdate<
     | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never
+    : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U;
+      Update: infer U
     }
     ? U
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
-  ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-      Update: infer U;
-    }
-    ? U
+    ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
     : never
-  : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends
@@ -163,24 +259,24 @@ export type Enums<
     | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
-    : never = never
+    : never = never,
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
-  ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-  : never;
+    ? PublicSchema["Enums"][PublicEnumNameOrOptions]
+    : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
     | keyof PublicSchema["CompositeTypes"]
     | { schema: keyof Database },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof Database;
+    schema: keyof Database
   }
     ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never
+    : never = never,
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
   ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof PublicSchema["CompositeTypes"]
-  ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-  : never;
+    ? PublicSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never
