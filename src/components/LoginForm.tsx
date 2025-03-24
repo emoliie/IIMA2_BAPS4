@@ -9,12 +9,15 @@ import Link from "next/link";
 import { toast } from "sonner";
 import bcrypt from "bcryptjs";
 import { useSession } from "@/lib/hooks/useSession";
+import { useUserStore } from "@/lib/store/user";
+import { useUser } from "@/lib/hooks/useUser";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { createSession, getSession } = useSession();
   const [loading, setLoading] = useState(false);
+  const { createUser } = useUser();
 
   const isLoggedIn = () => {
     return getSession();
@@ -56,6 +59,9 @@ export default function Login() {
       }
 
       createSession(user.id);
+
+      console.log("user: ", user);
+      createUser(user);
 
       toast.success("Connexion réussie !");
       window.location.href = "/";

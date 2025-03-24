@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { User } from "@supabase/supabase-js";
+
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { Search } from "lucide-react";
@@ -22,9 +22,6 @@ export default function Navbar() {
   };
 
   const sessionUserId = getSession();
-  // useEffect(() => {
-  //   console.log("session id :", sessionUserId);
-  // }, []);
 
   const [firstChat, setFirstChat] = useState<any>(null);
 
@@ -71,18 +68,15 @@ export default function Navbar() {
           </Link>
         </li>
 
-        {
-          // sessionUserId &&
-          firstChat && (
-            <li>
-              <Link href={`/chat/${firstChat.id}`}>
-                <Button className="text-primaryBlue border border-primaryBlue">
-                  Messages
-                </Button>
-              </Link>
-            </li>
-          )
-        }
+        {sessionUserId && firstChat && (
+          <li>
+            <Link href={`/chat/${firstChat.id}`}>
+              <Button className="text-primaryBlue border border-primaryBlue">
+                Messages
+              </Button>
+            </Link>
+          </li>
+        )}
 
         <li>
           {sessionUserId ? (

@@ -1,11 +1,22 @@
-import { User } from "@supabase/supabase-js";
 import { create } from "zustand";
 
-interface UserState {
-  user: User | undefined;
-  
+export interface User {
+  id: string;
+  email: string;
+  display_name: string;
+  created_at: string;
+  password?: string;
 }
 
-export const useUser = create<UserState>()((set) => ({
-  user: undefined,
+interface UserState {
+  user: User | null;
+  setUser: (user: User) => void;
+}
+
+
+export const useUserStore = create<UserState>()((set) => ({
+  user: null,
+  setUser: (user: User) => {
+    set({ user });
+  },
 }));

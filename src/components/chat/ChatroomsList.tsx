@@ -1,19 +1,26 @@
 "use client";
 
+import { useSession } from "@/lib/hooks/useSession";
 import { ChatRoom } from "@/lib/store/chatrooms";
 import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function ChatroomsList({
-  user,
   chatrooms,
 }: {
-  user: User;
   chatrooms: ChatRoom[];
 }) {
   const router = useRouter();
+  const { getSession } = useSession();
+  const sessionUserId = getSession();
+
+  if (!sessionUserId) {
+    console.error("Pas d'utilisateurs connectés", sessionUserId);
+    router.push("/");
+  }
 
   useEffect(() => {
     if (!chatrooms || !Array.isArray(chatrooms)) {
@@ -26,7 +33,7 @@ export default function ChatroomsList({
     <aside className="w-1/4 border-r">
       {chatrooms.map((chatroom) => (
         <div key={chatroom.id}>
-          {chatroom.recipient1.id !== user.id ? (
+          {chatroom.recipient1.id !== sessionUserId ? (
             <div
               className="flex items-center gap-2 p-4 border-b cursor-pointer"
               onClick={() => {
@@ -35,7 +42,7 @@ export default function ChatroomsList({
               }}
             >
               <Image
-                src={chatroom.recipient1.avatar_url}
+                src="/avatar.png"
                 alt={`Avatar of ${chatroom.recipient1.display_name}`}
                 width={40}
                 height={40}
@@ -52,7 +59,7 @@ export default function ChatroomsList({
               }}
             >
               <Image
-                src={chatroom.recipient2.avatar_url}
+                src="/avatar.png"
                 alt={`Avatar of ${chatroom.recipient2.display_name}`}
                 width={40}
                 height={40}

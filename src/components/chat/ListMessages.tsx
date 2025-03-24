@@ -27,7 +27,9 @@ export default function ListMessages({ chatroomId }: { chatroomId: string }) {
     const fetchMessages = async () => {
       if (!chatroomId) return; // Prevent fetch if chatroomId is undefined
 
-      console.log(chatroomId);
+      console.log("fetching messages from chatroom ", chatroomId);
+
+      useMessage.getState().clearMessages();
 
       const { data, error } = await supabase
         .from("messages")
@@ -38,7 +40,7 @@ export default function ListMessages({ chatroomId }: { chatroomId: string }) {
       if (error) {
         toast.error(error.message);
       } else {
-        // console.log(data);
+        console.log(data);
 
         data.forEach(async (msg) => {
           const { data: userData, error: userError } = await supabase
@@ -48,7 +50,7 @@ export default function ListMessages({ chatroomId }: { chatroomId: string }) {
             .single();
 
           if (!userError) {
-            addMessage({ ...msg, users: userData } as Imessage);
+            addMessage({ ...msg, user: userData } as Imessage);
           }
         });
       }
@@ -80,7 +82,7 @@ export default function ListMessages({ chatroomId }: { chatroomId: string }) {
               .single();
 
             if (!error) {
-              const newMessage = { ...payload.new, users: data };
+              const newMessage = { ...payload.new, user: data };
               addMessage(newMessage as Imessage);
             }
           }
@@ -158,9 +160,16 @@ export default function ListMessages({ chatroomId }: { chatroomId: string }) {
       >
         <div className="flex-1 pb-5 "></div>
         <div className="space-y-7">
-          {messages.map((value) => {
-            return <Message key={value.id} message={value} />;
-          })}
+          {messages
+            .slice()
+            .sort(
+              (a, b) =>
+                new Date(a.created_at).getTime() -
+                new Date(b.created_at).getTime()
+            )
+            .map((value) => {
+              return <Message key={value.id} message={value} />;
+            })}
         </div>
 
         <DeleteAlert />

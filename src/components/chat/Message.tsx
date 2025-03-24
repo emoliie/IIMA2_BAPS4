@@ -10,13 +10,17 @@ import {
 import { Ellipsis } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { useUser } from "@/lib/store/user";
+import { useSession } from "@/lib/hooks/useSession";
+import { useUser } from "@/lib/hooks/useUser";
 
 export default function Message({ message }: { message: Imessage }) {
-  const avatarUrl = message.users?.avatar_url!;
-  const displayName = message.users?.display_name!;
+  // const user = useMessage((state) => state.user);
 
-  const user = useUser((state) => state.user);
+  const { getSession } = useSession();
+  const { getUser } = useUser();
+  const sessionUserId = getSession();
+  const user = getUser();
+  const displayName = message.user?.display_name!;
 
   const options: Intl.DateTimeFormatOptions = {
     weekday: "short",
@@ -29,7 +33,7 @@ export default function Message({ message }: { message: Imessage }) {
     <div className="flex gap-2" key={message?.id}>
       <div>
         <Image
-          src={avatarUrl}
+          src="/avatar.png"
           alt={`Avatar of ${displayName}`}
           width={40}
           height={40}
@@ -51,7 +55,9 @@ export default function Message({ message }: { message: Imessage }) {
             )}
           </div>
 
-          {message.users?.id === user?.id && <MessageMenu message={message} />}
+          {message.user?.id === sessionUserId && (
+            <MessageMenu message={message} />
+          )}
         </div>
         <p className="text-gray-800">{message?.text}</p>
       </div>
