@@ -14,12 +14,6 @@ export default function Navbar() {
   const { getSession, destroySession } = useSession();
 
   const supabase = supabaseBrowser();
-  // Function to handle logout
-  const handleLogout = async () => {
-    destroySession();
-    router.push("/login");
-  };
-
   const sessionUserId = getSession();
 
   const [firstChat, setFirstChat] = useState<any>(null);
@@ -39,13 +33,18 @@ export default function Navbar() {
 
   return (
     <nav className="flex top-0 justify-between items-center px-10 py-10 lg:px-32 lg:py-5 border-b-2 border-primaryBlue">
-      <Link href="/">
+      <Link href="/" className="flex gap-4">
+        <Image
+          src="/site-logo.svg"
+          alt="Logo Site"
+          width={50}
+          height={50}
+        />
         <Image
           src="/Logo_Rueil-Malmaison.png"
-          alt="Logo Site"
+          alt="Logo Rueil Malmaison"
           width={100}
           height={50}
-          className="w-20 lg:w-50"
         />
       </Link>
 
@@ -69,28 +68,47 @@ export default function Navbar() {
 
         {sessionUserId && firstChat && (
           <li>
-            <Link href={`/chat/${firstChat.id}`}>
-              <Button className="text-primaryBlue border border-primaryBlue">
-                Messages
-              </Button>
+            <Link
+              href={`/chat/${firstChat.id}`}
+              className="flex flex-col justify-center items-center"
+            >
+              <Image
+                src="/msgIcon.svg"
+                alt="Icone messages"
+                width={30}
+                height={30}
+              />
+              <p className="text-primaryBlue text-xs">Messages</p>
             </Link>
           </li>
         )}
 
         <li>
           {sessionUserId ? (
-            <Button
-              onClick={handleLogout}
-              className="text-primaryBlue border border-primaryBlue"
+            <Link
+              href="/profile"
+              className="flex flex-col justify-center items-center"
             >
-              Déconnexion
-            </Button>
+              <Image
+                src="/accountIcon.svg"
+                alt="Icone profil"
+                width={30}
+                height={30}
+              />
+              <p className="text-primaryBlue text-xs">Compte</p>
+            </Link>
           ) : (
-            // <Button>Mon Compte</Button>
-            <Link href="/login">
-              <Button className="text-primaryBlue border border-primaryBlue">
-                Connexion
-              </Button>
+            <Link
+              href="/login"
+              className="flex flex-col justify-center items-center"
+            >
+              <Image
+                src="/accountIcon.svg"
+                alt="Icone profil"
+                width={30}
+                height={30}
+              />
+              <p className="text-primaryBlue text-xs">Compte</p>
             </Link>
           )}
         </li>
