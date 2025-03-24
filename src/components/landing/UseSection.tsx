@@ -3,16 +3,18 @@ import React from "react";
 
 export default function UseSection() {
   return (
-    <section className="bg-primaryBlue py-20 px-80 flex flex-col items-center justify-center gap-10">
-      <h2 className="text-secondaryGreen text-4xl font-semibold">
+    <section className="bg-primaryBlue py-10 px-20 lg:py-20 lg:px-80 flex flex-col items-center justify-center gap-10">
+      <h2 className="text-secondaryGreen text-center text-3xl lg:text-4xl font-semibold">
         Comment ça fonctionne ?
       </h2>
-      <div className="flex justify-center gap-20">
-        <div className="w-1/3">
-          <h3 className="text-white text-3xl text-center">Donner</h3>
-          <div className="flex p-8 gap-10">
+      <div className="flex flex-col lg:flex-row justify-center gap-10 lg:gap-20">
+        <div className="lg:w-1/3">
+          <h3 className="text-white text-2xl lg:text-3xl text-center">
+            Donner
+          </h3>
+          <div className="flex py-8 lg:p-8 gap-10">
             <div className="flex flex-col gap-2">
-              <h4 className="text-secondaryGreen text-3xl font-semibold">
+              <h4 className="text-secondaryGreen text-2xl lg:text-3xl font-semibold">
                 Étape 1
               </h4>
               <p className="text-white">
@@ -33,11 +35,13 @@ export default function UseSection() {
 
         <span className="border-2 rounded-full"></span>
 
-        <div className="w-1/3">
-          <h3 className="text-white text-3xl text-center">Récupérer</h3>
-          <div className="flex p-8 gap-10">
+        <div className="lg:w-1/3">
+          <h3 className="text-white text-2xl lg:text-3xl text-center">
+            Récupérer
+          </h3>
+          <div className="flex py-8 lg:p-8 gap-10">
             <div className="flex flex-col gap-2">
-              <h4 className="text-secondaryGreen text-3xl font-semibold">
+              <h4 className="text-secondaryGreen text-2xl lg:text-3xl font-semibold">
                 Étape 1
               </h4>
               <p className="text-white">

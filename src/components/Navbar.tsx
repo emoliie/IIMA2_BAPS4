@@ -4,7 +4,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "./ui/button";
-
 import { useRouter } from "next/navigation";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { Search } from "lucide-react";
@@ -39,23 +38,24 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="flex top-0 justify-between items-center px-32 py-5 border-b-2 border-primaryBlue">
+    <nav className="flex top-0 justify-between items-center px-10 py-10 lg:px-32 lg:py-5 border-b-2 border-primaryBlue">
       <Link href="/">
         <Image
           src="/Logo_Rueil-Malmaison.png"
           alt="Logo Site"
           width={100}
           height={50}
-          className="w-50"
+          className="w-20 lg:w-50"
         />
       </Link>
 
-      <div className="flex gap-2 bg-[#DEDEDE] px-5 py-2 rounded-full">
+
+      <div className="hidden lg:flex gap-2 bg-[#DEDEDE] px-5 py-2 rounded-full">
         <Search size={24} className="text-customGray" />
         <input
           type="text"
           placeholder="Rechercher"
-          className="bg-transparent placeholder-customGray w-96"
+          className="bg-transparent placeholder-customGray lg:w-96"
         />
       </div>
 

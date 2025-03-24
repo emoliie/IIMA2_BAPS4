@@ -4,9 +4,9 @@ import { Button } from "../ui/button";
 
 export default function EndSection() {
   return (
-    <section className="flex flex-col items-center justify-center py-20 px-80 gap-8 relative">
+    <section className="flex flex-col items-center justify-center p-20 lg:py-20 lg:px-80 gap-8 relative">
       <div className="flex flex-col items-center justify-center gap-5">
-        <p className="text-5xl text-primaryBlue font-semibold">
+        <p className="text-4xl lg:text-5xl text-primaryBlue font-semibold">
           À votre tour !
         </p>
         <Image
@@ -30,7 +30,7 @@ export default function EndSection() {
         aria-label="hidden"
         width={500}
         height={500}
-        className="absolute -bottom-32 left-0 size-[400px]"
+        className="absolute -bottom-20 lg:-bottom-32 left-0 size-60 lg:size-[400px]"
       />
       <Image
         src="/gateaux.png"
@@ -38,7 +38,7 @@ export default function EndSection() {
         aria-label="hidden"
         width={500}
         height={500}
-        className="absolute -bottom-32 right-0 size-96"
+        className="absolute -bottom-20 lg:-bottom-32 right-0 size-52 lg:size-96"
       />
     </section>
   );

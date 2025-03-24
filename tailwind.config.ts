@@ -26,7 +26,7 @@ export default {
           DEFAULT: "hsl(var(--custom-white))",
           foreground: "hsl(var(--custom-white-foreground))",
         },
-        
+
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -75,5 +75,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwind-hamburgers")],
 } satisfies Config;

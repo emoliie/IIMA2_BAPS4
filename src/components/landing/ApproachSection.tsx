@@ -3,9 +3,9 @@ import React from "react";
 
 export default function ApproachSection() {
   return (
-    <section className="py-20 px-80 flex justify-between gap-10">
-      <div className="w-1/2 flex flex-col gap-10">
-        <h2 className="text-4xl font-semibold text-primaryBlue">
+    <section className="py-10 px-20 lg:py-20 lg:px-80 flex flex-col lg:flex-row justify-between gap-10">
+      <div className="lg:w-1/2 flex flex-col gap-10">
+        <h2 className="text-3xl lg:text-4xl font-semibold text-primaryBlue">
           Notre démarche
         </h2>
         <p className="leading-relaxed">
@@ -23,7 +23,7 @@ export default function ApproachSection() {
         alt="Photo de marché"
         height={600}
         width={600}
-        className="rounded-xl w-1/2"
+        className="rounded-xl lg:w-1/2"
       />
     </section>
   );
