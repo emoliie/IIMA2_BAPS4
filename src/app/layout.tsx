@@ -16,11 +16,13 @@ export const metadata: Metadata = {
   description: "Plateforme de partage et d'anti-gaspillage alimentaire",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await supabaseServer();
+  const { data } = await supabase.auth.getSession();
   return (
     <html lang="fr">
       <body className={poppins.variable}>

@@ -160,15 +160,7 @@ export type Database = {
           password: string
         }
         Update: {
-          created_at?: string
-          display_name?: string
-          email?: string
-          id?: string
-          password?: string
-        }
-        Relationships: []
-      }
-    }
+
     Views: {
       [_ in never]: never
     }
