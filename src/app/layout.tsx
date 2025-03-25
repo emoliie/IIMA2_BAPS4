@@ -21,8 +21,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const supabase = await supabaseServer();
-  const { data } = await supabase.auth.getSession();
   return (
     <html lang="fr">
       <body className={poppins.variable}>

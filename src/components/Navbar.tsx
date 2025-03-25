@@ -34,12 +34,7 @@ export default function Navbar() {
   return (
     <nav className="flex top-0 justify-between items-center px-10 py-10 lg:px-32 lg:py-5 border-b-2 border-primaryBlue">
       <Link href="/" className="flex gap-4">
-        <Image
-          src="/site-logo.svg"
-          alt="Logo Site"
-          width={50}
-          height={50}
-        />
+        <Image src="/site-logo.svg" alt="Logo Site" width={50} height={50} />
         <Image
           src="/Logo_Rueil-Malmaison.png"
           alt="Logo Rueil Malmaison"
@@ -58,29 +53,31 @@ export default function Navbar() {
       </div> */}
 
       <ul className="flex space-x-4">
-        {/* <li>
-          <Link href="/">
-            <Button className="bg-primaryBlue hover:bg-blue-600">
-              Les Dons
-            </Button>
-          </Link>
-        </li> */}
-
         {sessionUserId && firstChat && (
-          <li>
-            <Link
-              href={`/chat/${firstChat.id}`}
-              className="flex flex-col justify-center items-center"
-            >
-              <Image
-                src="/msgIcon.svg"
-                alt="Icone messages"
-                width={30}
-                height={30}
-              />
-              <p className="text-primaryBlue text-xs">Messages</p>
-            </Link>
-          </li>
+          <>
+            <li>
+              <Link href="/new-product">
+                <Button className="bg-primaryBlue hover:bg-blue-600">
+                  Nouveau don
+                </Button>
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href={`/chat/${firstChat.id}`}
+                className="flex flex-col justify-center items-center"
+              >
+                <Image
+                  src="/msgIcon.svg"
+                  alt="Icone messages"
+                  width={30}
+                  height={30}
+                />
+                <p className="text-primaryBlue text-xs">Messages</p>
+              </Link>
+            </li>
+          </>
         )}
 
         <li>

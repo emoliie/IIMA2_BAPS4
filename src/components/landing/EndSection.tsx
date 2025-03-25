@@ -4,25 +4,29 @@ import { Button } from "../ui/button";
 
 export default function EndSection() {
   return (
-    <section className="flex flex-col items-center justify-center p-20 lg:py-20 lg:px-80 gap-8 relative">
-      <div className="flex flex-col items-center justify-center gap-5">
-        <p className="text-4xl lg:text-5xl text-primaryBlue font-semibold">
-          À votre tour !
-        </p>
-        <Image
-          src="/vector1.svg"
-          alt=""
-          width={50}
-          height={50}
-          aria-label="hidden"
-          className="min-w-full"
-        />
-      </div>
-      <div className="flex justify-center gap-5">
-        <Button className="bg-primaryBlue p-6 hover:bg-blue-700">Donner</Button>
-        <Button className="bg-primaryBlue p-6 hover:bg-blue-700">
-          Voir les produits
-        </Button>
+    <section className="flex flex-col items-center justify-center py-20 lg:py-20 relative">
+      <div className="lg:max-w-5xl m-auto">
+        <div className="flex flex-col items-center justify-center gap-5">
+          <p className="text-4xl lg:text-5xl text-primaryBlue font-semibold">
+            À votre tour !
+          </p>
+          <Image
+            src="/vector1.svg"
+            alt=""
+            width={50}
+            height={50}
+            aria-label="hidden"
+            className="min-w-full"
+          />
+        </div>
+        <div className="flex justify-center gap-5 mt-8">
+          <Button className="bg-primaryBlue p-6 hover:bg-blue-700">
+            Donner
+          </Button>
+          <Button className="bg-primaryBlue p-6 hover:bg-blue-700">
+            Voir les produits
+          </Button>
+        </div>
       </div>
       <Image
         src="/fraises.png"

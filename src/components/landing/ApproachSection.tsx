@@ -3,7 +3,7 @@ import React from "react";
 
 export default function ApproachSection() {
   return (
-    <section className="py-10 px-20 lg:py-20 lg:px-80 flex flex-col lg:flex-row justify-between gap-10">
+    <section className="py-10 px-20 lg:py-20 lg:max-w-5xl m-auto flex flex-col lg:flex-row items-center justify-between gap-10">
       <div className="lg:w-1/2 flex flex-col gap-10">
         <h2 className="text-3xl lg:text-4xl font-semibold text-primaryBlue">
           Notre démarche

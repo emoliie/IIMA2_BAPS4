@@ -3,7 +3,7 @@ import React from "react";
 
 export default function HeroSection() {
   return (
-    <header className="w-screen flex flex-col items-center justify-between pt-10 px:20 lg:pt-20 lg:px-80 lg:flex-row">
+    <header className="w-screen flex flex-col items-center justify-between lg:max-w-5xl m-auto pt-10 md:pt-20 lg:flex-row">
       <div className="flex flex-col items-center justify-center gap-5 pb-8">
         <h1 className="text-4xl lg:text-5xl font-semibold text-left text-primaryBlue tracking-wide leading-relaxed">
           Vous aussi, agissez <br /> contre le gaspillage !
