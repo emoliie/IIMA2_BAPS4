@@ -54,16 +54,15 @@ export function DeleteAlert() {
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            La suppression sera définitive. 
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogCancel>Annuler</AlertDialogCancel>
           <AlertDialogAction onClick={handleDeleteMessage}>
-            Continue
+            Valider
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -112,12 +111,12 @@ export function EditAlert() {
       </DialogTrigger>
       <DialogContent className="w-full">
         <DialogHeader>
-          <DialogTitle>Edit Message</DialogTitle>
+          <DialogTitle>Modifier le message</DialogTitle>
         </DialogHeader>
         <Input defaultValue={actionMessage?.text} ref={inputRef} />
         <DialogFooter>
           <Button type="submit" onClick={handleEdit}>
-            Save changes
+            Valider
           </Button>
         </DialogFooter>
       </DialogContent>

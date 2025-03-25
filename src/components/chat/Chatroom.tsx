@@ -7,7 +7,6 @@ import ChatInput from "@/components/chat/ChatInput";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { useSession } from "@/lib/hooks/useSession";
 import { useParams, useRouter } from "next/navigation";
-import { PageParams } from "@supabase/supabase-js";
 
 interface ChatroomProps {
   room: string;
@@ -35,10 +34,10 @@ export default function Chatroom(props: ChatroomProps) {
           .from("chatrooms")
           .select(
             `
-                    id,
-                    recipient1:users!recipient1(*),
-                    recipient2:users!recipient2(*)
-                  `
+              id,
+              recipient1:users!recipient1(*),
+              recipient2:users!recipient2(*)
+            `
           )
           .or(`recipient1.eq.${sessionUserId},recipient2.eq.${sessionUserId}`);
 

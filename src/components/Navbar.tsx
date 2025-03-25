@@ -58,13 +58,13 @@ export default function Navbar() {
       </div> */}
 
       <ul className="flex space-x-4">
-        <li>
+        {/* <li>
           <Link href="/">
             <Button className="bg-primaryBlue hover:bg-blue-600">
               Les Dons
             </Button>
           </Link>
-        </li>
+        </li> */}
 
         {sessionUserId && firstChat && (
           <li>

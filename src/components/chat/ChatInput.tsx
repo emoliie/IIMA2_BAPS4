@@ -5,9 +5,7 @@ import { Input } from "../ui/input";
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { toast } from "sonner";
 import { v4 as uuidv4 } from "uuid";
-import { useUserStore } from "@/lib/store/user";
 import { Imessage, useMessage } from "@/lib/store/messages";
-import type { User } from "@/lib/store/user";
 import { useSession } from "@/lib/hooks/useSession";
 import { useUser } from "@/lib/hooks/useUser";
 

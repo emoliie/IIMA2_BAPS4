@@ -14,6 +14,10 @@ export default function UserInfo() {
   const supabase = supabaseBrowser();
   const router = useRouter();
 
+  if (!sessionUserId) {
+    window.location.href = "/";
+  }
+
   const [username, setUsername] = useState<string>();
   const [email, setEmail] = useState<string>();
 
