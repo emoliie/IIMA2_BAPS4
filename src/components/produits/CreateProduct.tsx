@@ -2,6 +2,7 @@
 
 import { supabaseBrowser } from "@/lib/supabase/browser";
 import { useState, useEffect } from "react";
+import { poppins400 } from "../../../public/fonts/fonts";
 
 const CreateProduct = () => {
     const supabase = supabaseBrowser();
@@ -13,9 +14,9 @@ const CreateProduct = () => {
         expiration: "",
         description: "",
         urgent: false,
-        usertaker: "b135f4f9-29de-4c24-9a1d-9221397af508",
+        usertaker: "",
         reserved: false,
-        category: "",
+        category: "fruts",
     });
 
     
@@ -45,62 +46,61 @@ const CreateProduct = () => {
         }
     };
 
-    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
+            const { data, error } = await supabase.storage
+                .from('imagesproduits')
+                .upload(`imagesproduits/${file.name}`, file);
+
+            if (error) {
+                console.error("errorimg", error);
+            } else {
+                const photoUrl = supabase.storage.from('imagesproduits').getPublicUrl(`imagesproduits/${file.name}`).data.publicUrl;
                 setProduct((prevProduct) => ({
                     ...prevProduct,
-                    photo: file.name,
+                    photo: photoUrl,
                 }));
-            };
-            reader.readAsDataURL(file);
+            }
         }
     };
 
     return (
-        <div>
-            <h1>Nouveau Don</h1>
-            <form onSubmit={handleCreateProduct} >
-                <div>
-                    <div>
-                        <input type="text" name="name" placeholder="Nom" value={product.name} onChange={handleChange} required />
-                        <select name="category" onChange={handleSelectChange}>
-                            <option value="fruts">Fruits</option>
-                            <option value="vegetables">Légumes</option>
-                            <option value="meat">Viande</option>
-                            <option value="fish">Poisson</option>
-                            <option value="dairy">Produits laitiers</option>
-                            <option value="starchy">Féculents</option>
-                            <option value="other">Autres</option>
-                        </select>
-                        <input type="date" name="expiration" placeholder="Date d'expiration" value={product.expiration} onChange={handleChange} required />
-                    </div>
-                    <div>
-                        <input type="file" name="photo" onChange={handleFileChange}  required />
+        <div className={`${poppins400}`}>
+            <form onSubmit={handleCreateProduct} className="w-full flex flex-col items-center">
+                <div className="bg-[#003BAA] w-full flex flex-col items-center p-5">
+                    <h1 className={`text-2xl text-white mb-8 mt-2`}>Nouveau Don</h1>
+                    <div className="flex justify-between w-3/4 h-96 bg-[#E6F3FF] rounded-xl mb-10">
+                        <div className="flex flex-col justify-center w-5/12 pl-14 pr-14">
+                            <label htmlFor="name">Nom du produit :</label>
+                            <input type="text" name="name" className="mb-5 p-1 rounded-lg" value={product.name} onChange={handleChange} required />
+                            <label htmlFor="category">Catégorie :</label>
+                            <select name="category" className="mb-5 p-1 rounded-lg" onChange={handleSelectChange}>
+                                <option value="fruts">Fruits</option>
+                                <option value="vegetables">Légumes</option>
+                                <option value="meat">Viande</option>
+                                <option value="fish">Poisson</option>
+                                <option value="dairy">Produits laitiers</option>
+                                <option value="starchy">Féculents</option>
+                                <option value="other">Autres</option>
+                            </select>
+                            <label htmlFor="date">Date d'expiration :</label>
+                            <input type="date" name="expiration" className="mb-5 p-1 rounded-lg" value={product.expiration} onChange={handleChange} required />
+                            <label htmlFor="description">Description :</label>
+                            <textarea name="description" className="p-1 rounded-lg" value={product.description} onChange={handleChange} required />
+                        </div>
+                        <div className="flex flex-col justify-center items-center w-7/12 pl-14 pr-14">
+                            <input type="file" name="photo" id="file" className="hidden" onChange={handleFileChange} required />
+                            <label htmlFor="file" className="w-full h-3/4 bg-[#DEDEDE] flex items-center justify-center cursor-pointer rounded-xl">
+                                <img src="appareilphoto.svg" className="w-16 h-16" alt="Upload" />
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div>
                     
                 </div>
-            </form>
-            <form>
-                <input type="text" name="name" placeholder="Nom" value={product.name} onChange={handleChange} required />
-                <select name="category" onChange={handleSelectChange}>
-                    <option value="fruts">Fruits</option>
-                    <option value="vegetables">Légumes</option>
-                    <option value="meat">Viande</option>
-                    <option value="fish">Poisson</option>
-                    <option value="dairy">Produits laitiers</option>
-                    <option value="starchy">Féculents</option>
-                    <option value="other">Autres</option>
-                </select>
-                <input type="file" name="photo" onChange={handleFileChange}  required />
-                <input type="text" name="place" placeholder="Lieu" value={product.place} onChange={handleChange} required />
-                <input type="date" name="expiration" placeholder="Date d'expiration" value={product.expiration} onChange={handleChange} required />
-                <textarea name="description" placeholder="Description" value={product.description} onChange={handleChange} required />
-                <button type="submit">Créer</button>
+                <button type="submit" className="p-2 px-10 bg-[#32F188] rounded-lg mt-10">Valider</button>
             </form>
         </div>
     );
