@@ -12,7 +12,7 @@ export default function Footer() {
         height={50}
       />
       <ul className="flex flex-wrap text-white gap-4">
-        <Link href="#">Mentions Légales</Link>
+        <Link href="/legal-notices">Mentions Légales</Link>
         <Link href="#">Politique de confidentialité</Link>
         <Link href="#">Numéro d'urgence</Link>
         <Link href="#">Plan du site</Link>

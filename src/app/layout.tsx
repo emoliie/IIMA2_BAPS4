@@ -12,8 +12,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Rueil Anti-Gaspi",
-  description: "Plateforme anti-gaspillage alimentaire",
+  title: "Rueil Partage",
+  description: "Plateforme de partage et d'anti-gaspillage alimentaire",
 };
 
 export default function RootLayout({
