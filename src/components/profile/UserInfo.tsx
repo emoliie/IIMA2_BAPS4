@@ -7,6 +7,8 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { Input } from "../ui/input";
+import { Pen } from "lucide-react";
+import EditProfile from "./EditProfile";
 
 export default function UserInfo() {
   const { getSession, destroySession } = useSession();
@@ -21,6 +23,16 @@ export default function UserInfo() {
   const [username, setUsername] = useState<string>();
   const [email, setEmail] = useState<string>();
 
+  const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
+
+  const openForm = () => {
+    setIsFormOpen(true); // Open the form
+  };
+
+  const closeForm = () => {
+    setIsFormOpen(false); // Close the form
+  };
+
   useEffect(() => {
     async function fetchUser() {
       const { data, error } = await supabase
@@ -34,7 +46,7 @@ export default function UserInfo() {
       return data;
     }
     fetchUser();
-  });
+  }, [sessionUserId, supabase]);
 
   const handleLogout = async () => {
     destroySession();
@@ -52,12 +64,31 @@ export default function UserInfo() {
           height={100}
           className="bg-white rounded-full"
         />
-        <h2 className="text-2xl">{username}</h2>
+        <div className="flex gap-4 items-center justify-center ">
+          <h2 className="text-2xl">{username}</h2>
+          <Pen className="size-4 cursor-pointer" onClick={openForm} />
+        </div>
+
         <p>{email}</p>
-        <Button onClick={handleLogout} className="bg-secondaryGreen text-white">
+
+        <Button
+          onClick={handleLogout}
+          className="bg-secondaryGreen text-white mt-4"
+        >
           Déconnexion
         </Button>
       </div>
+
+      {/* Form to update username */}
+      {isFormOpen && (
+        <EditProfile
+          username={username}
+          setUsername={setUsername}
+          email={email}
+          setEmail={setEmail}
+          closeForm={closeForm}
+        />
+      )}
     </div>
   );
 }
