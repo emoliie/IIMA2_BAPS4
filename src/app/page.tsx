@@ -10,12 +10,10 @@ export default async function page() {
 
   return (
     <>
-      <Navbar />
       <HeroSection />
       <UseSection />
       <ApproachSection />
       <EndSection />
-      <Footer />
     </>
   );
 }
