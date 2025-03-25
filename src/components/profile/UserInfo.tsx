@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { Pen, X } from "lucide-react";
-import { DeleteProfile, EditProfile } from "./ProfileActions";
+import { DeleteProfile, EditProfile } from "./profileActions";
 
 export default function UserInfo() {
   const { getSession, destroySession } = useSession();
@@ -81,7 +81,7 @@ export default function UserInfo() {
 
         <Button
           onClick={handleLogout}
-          className="bg-secondaryGreen hover:bg-green-700 text-white mt-4"
+          className="bg-secondaryGreen hover:bg-green-700 text-black mt-4"
         >
           Déconnexion
         </Button>

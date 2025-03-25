@@ -73,7 +73,7 @@ export default function Login() {
 
   return (
     <div className="flex flex-col justify-center items-center px-4 my-52">
-      <h1 className="text-3xl text-center mb-6">Connexion</h1>
+      <h1 className="text-3xl text-center mb-6">Connectez-vous</h1>
       <div className="flex flex-col justify-center items-center w-full max-w-2xl bg-customWhite rounded-2xl py-10">
         <form
           onSubmit={handleLogin}

@@ -60,7 +60,7 @@ export default function Register() {
 
   return (
     <div className="flex flex-col justify-center items-center px-4 my-40">
-      <h1 className="text-3xl text-center mb-6">Inscription</h1>
+      <h1 className="text-3xl text-center mb-6">Inscrivez-vous</h1>
       <div className="flex flex-col justify-center items-center w-full max-w-2xl bg-customWhite rounded-2xl py-10">
         {/* Formulaire d'inscription */}
         <form
