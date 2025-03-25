@@ -9,12 +9,12 @@ const CreateProduct = () => {
     const [product, setProduct] = useState({
         name: "",
         photo: "",
-        userid: "4b7cdb30-c6ce-4187-b4c8-075a049eccd5",
+        userid: "b435fb89-07ab-456d-bbf1-f2f075088a31",
         place: "",
         expiration: "",
         description: "",
         urgent: false,
-        usertaker: "",
+        usertaker: null,
         reserved: false,
         category: "fruts",
     });
