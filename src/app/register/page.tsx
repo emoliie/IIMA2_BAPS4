@@ -1,11 +1,10 @@
-import Navbar from "@/components/Navbar";
+import RegisterForm from "@/components/RegisterForm";
 import React from "react";
 
-export default function page() {
+export default async function page() {
   return (
     <>
-      <Navbar />
-      
+      <RegisterForm />
     </>
   );
 }
