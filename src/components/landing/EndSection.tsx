@@ -19,8 +19,8 @@ export default function EndSection() {
         />
       </div>
       <div className="flex justify-center gap-5">
-        <Button className="bg-primaryBlue p-6 hover:bg-blue-600">Donner</Button>
-        <Button className="bg-primaryBlue p-6 hover:bg-blue-600">
+        <Button className="bg-primaryBlue p-6 hover:bg-blue-700">Donner</Button>
+        <Button className="bg-primaryBlue p-6 hover:bg-blue-700">
           Voir les produits
         </Button>
       </div>

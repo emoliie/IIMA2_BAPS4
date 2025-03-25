@@ -56,12 +56,12 @@ export function DeleteAlert() {
         <AlertDialogHeader>
           <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
           <AlertDialogDescription>
-            La suppression sera définitive. 
+            La suppression sera définitive.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Annuler</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDeleteMessage}>
+          <AlertDialogAction onClick={handleDeleteMessage} className="hover:bg-blue-700">
             Valider
           </AlertDialogAction>
         </AlertDialogFooter>
@@ -115,7 +115,11 @@ export function EditAlert() {
         </DialogHeader>
         <Input defaultValue={actionMessage?.text} ref={inputRef} />
         <DialogFooter>
-          <Button type="submit" onClick={handleEdit}>
+          <Button
+            type="submit"
+            onClick={handleEdit}
+            className="hover:bg-blue-700"
+          >
             Valider
           </Button>
         </DialogFooter>

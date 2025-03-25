@@ -6,9 +6,8 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
-import { Input } from "../ui/input";
-import { Pen } from "lucide-react";
-import EditProfile from "./EditProfile";
+import { Pen, X } from "lucide-react";
+import { DeleteProfile, EditProfile } from "./ProfileActions";
 
 export default function UserInfo() {
   const { getSession, destroySession } = useSession();
@@ -24,6 +23,7 @@ export default function UserInfo() {
   const [email, setEmail] = useState<string>();
 
   const [isFormOpen, setIsFormOpen] = useState<boolean>(false);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   const openForm = () => {
     setIsFormOpen(true); // Open the form
@@ -31,6 +31,14 @@ export default function UserInfo() {
 
   const closeForm = () => {
     setIsFormOpen(false); // Close the form
+  };
+
+  const openDialog = () => {
+    setIsDialogOpen(true); // Open the dialog
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false); // Close the dialog
   };
 
   useEffect(() => {
@@ -73,9 +81,15 @@ export default function UserInfo() {
 
         <Button
           onClick={handleLogout}
-          className="bg-secondaryGreen text-white mt-4"
+          className="bg-secondaryGreen hover:bg-green-700 text-white mt-4"
         >
           Déconnexion
+        </Button>
+        <Button
+          onClick={openDialog}
+          className="bg-transparent border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white"
+        >
+          Supprimer mon compte
         </Button>
       </div>
 
@@ -89,6 +103,9 @@ export default function UserInfo() {
           closeForm={closeForm}
         />
       )}
+
+      {/* Dialog */}
+      {isDialogOpen && <DeleteProfile closeDialog={closeDialog} />}
     </div>
   );
 }
