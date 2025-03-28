@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 
 const CreateProduct = () => {
   const supabase = supabaseBrowser();
@@ -88,10 +89,10 @@ const CreateProduct = () => {
   return (
     <form
       onSubmit={handleCreateProduct}
-      className="w-full flex flex-col items-center pb-60"
+      className="w-full flex flex-col items-center pb-60 gap-16"
     >
       <div className="bg-[#003BAA] w-full flex flex-col items-center p-5 relative">
-        <h1 className={`text-4xl text-white mb-8 mt-2`}>Nouveau Don</h1>
+        <h1 className={`text-4xl text-white my-8`}>Nouveau Don</h1>
         <div className="flex justify-between w-3/4 h-96 bg-[#E6F3FF] rounded-xl mb-10">
           <div className="flex flex-col justify-center w-5/12 pl-14 pr-14">
             <label htmlFor="name">Nom du produit :</label>
@@ -183,6 +184,21 @@ const CreateProduct = () => {
           height={100}
           className="absolute bottom-10 right-24 rotate-180"
         />
+      </div>
+
+      <div className="w-screen">
+        <div className="max-w-6xl m-auto bg-customWhite p-10 rounded-2xl flex justify-between gap-10">
+          <div className="flex flex-col justify-center items-center gap-6 w-1/2">
+            <p className="text-xl">Choisissez un stand d'échange</p>
+          </div>
+          <Image
+            src="/map.png"
+            alt="Carte de Rueil Malmaison"
+            width={500}
+            height={500}
+            className="rounded-2xl"
+          />
+        </div>
       </div>
 
       <button type="submit" className="p-2 px-10 bg-[#32F188] rounded-lg mt-10">

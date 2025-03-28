@@ -1,8 +1,18 @@
+"use client";
+
 import Image from "next/image";
 import React from "react";
 import { Button } from "../ui/button";
+import { CircleArrowUp } from "lucide-react";
 
 export default function EndSection() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth", // Smooth scrolling effect
+    });
+  };
+
   return (
     <section className="flex flex-col items-center justify-center py-20 lg:py-20 relative">
       <div className="lg:max-w-5xl m-auto">
@@ -43,6 +53,11 @@ export default function EndSection() {
         width={500}
         height={500}
         className="absolute -bottom-20 lg:-bottom-32 right-0 size-52 lg:size-96"
+      />
+
+      <CircleArrowUp
+        className="absolute bottom-10 right-10 text-white size-16 lg:size-20 cursor-pointer"
+        onClick={scrollToTop}
       />
     </section>
   );

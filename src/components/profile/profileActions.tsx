@@ -49,7 +49,7 @@ export function EditProfile({
         >
           <X />
         </button>
-        <h2 className="text-xl mb-4">Modifier le nom d'utilisateur</h2>
+        <h2 className="text-xl mb-4">Modifier le profil</h2>
         <form onSubmit={handleFormSubmit}>
           <Input
             type="text"

@@ -22,11 +22,22 @@ export default function ChatInput({ chatroomId }: ChatInputProps) {
   const { getUser } = useUser();
   const sessionUserId = getSession();
 
-  const user = getUser();
-
-  console.log(user);
+  // const user = getUser();
 
   const handleSendMessage = async (text: string) => {
+    const { data: users, error } = await supabase
+      .from("users")
+      .select("*")
+      .eq("id", sessionUserId);
+
+    if (error) {
+      console.error("Error fetching user:", error);
+      return;
+    }
+
+    const user = users?.[0]; // Assuming the query returns an array
+    console.log("connected user:", user);
+    
     if (text.trim()) {
       const id = uuidv4(); // Generate uuid
       const newMessage = {

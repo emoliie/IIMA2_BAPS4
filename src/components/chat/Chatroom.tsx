@@ -20,6 +20,7 @@ export default function Chatroom(props: ChatroomProps) {
   const router = useRouter();
 
   const [chatrooms, setChatrooms] = useState<any[]>([]);
+  const [recipientName, setRecipientName] = useState<string | null>(null); // State for recipient's name
 
   const sessionUserId = getSession();
 
@@ -45,6 +46,18 @@ export default function Chatroom(props: ChatroomProps) {
           console.log("Erreur lors de la récupération des chatrooms:", error);
         } else {
           setChatrooms(chatrooms || []);
+
+          // Find the current chatroom and set the recipient's name
+          const currentChatroom = chatrooms?.find(
+            (chatroom) => chatroom.id === room
+          );
+          if (currentChatroom) {
+            const recipient =
+              (currentChatroom.recipient1 as any).id === sessionUserId
+                ? currentChatroom.recipient2
+                : currentChatroom.recipient1;
+            setRecipientName(recipient.display_name);
+          }
         }
       } catch (error) {
         console.error("Erreur inattendue:", error);
@@ -61,7 +74,9 @@ export default function Chatroom(props: ChatroomProps) {
         {room && (
           <div className="border rounded-lg overflow-hidden h-full flex flex-col w-3/4 flex-3">
             <div className="bg-gray-200 p-5">
-              <p className="font-semibold">test</p>
+              <p className="font-semibold">
+                {recipientName || "Chargement..."}
+              </p>
             </div>
             <ListMessages chatroomId={room} />
             <ChatInput chatroomId={room} />

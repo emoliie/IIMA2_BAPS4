@@ -8,7 +8,7 @@ export default function UseSection() {
         <h2 className="text-secondaryGreen text-center text-3xl lg:text-4xl font-semibold">
           Comment ça fonctionne ?
         </h2>
-        <div className="flex flex-col md:flex-row justify-center gap-10 lg:gap-20">
+        <div className="flex flex-col md:flex-row justify-between gap-10">
           <div className="lg:w-1/3">
             <h3 className="text-white text-2xl lg:text-3xl text-center">
               Donner

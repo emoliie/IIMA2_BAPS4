@@ -46,6 +46,7 @@ export default function Login() {
 
       if (error || !user) {
         toast.error("Email ou mot de passe incorrect");
+        setLoading(false);
         return;
       }
 
@@ -53,6 +54,7 @@ export default function Login() {
 
       if (!passwordMatch) {
         toast.error("Mot de passe incorrect");
+        setLoading(false);
         return;
       }
 
@@ -66,6 +68,7 @@ export default function Login() {
     } catch (error) {
       console.error("Erreur lors de la connexion :", error);
       toast.error("Une erreur est survenue lors de la connexion.");
+      setLoading(false);
     }
 
     setLoading(false);
